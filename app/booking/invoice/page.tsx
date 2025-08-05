@@ -236,7 +236,7 @@ function InvoiceContent() {
 
     try {
         const response = await fetch(
-            "http://localhost:8085/api/bookingConfirm",
+            "https://api.worldtriplink.com/api/bookingConfirm",
             {
                 method: "POST",
                 headers: {
@@ -326,7 +326,7 @@ function InvoiceContent() {
       // Step 1: Create a Razorpay Order on your backend
       
 
-      const orderResponse = await axios.post("http://localhost:8085/api/payments/create-razorpay-order", {
+      const orderResponse = await axios.post("https://api.worldtriplink.com/api/payments/create-razorpay-order", {
         amount: amountToPay,
       });
 
@@ -632,7 +632,7 @@ console.log("orderId:", orderId);
 
     try {
         const response = await fetch(
-            "http://localhost:8085/api/bookingConfirm",
+            "https://api.worldtriplink.com/api/bookingConfirm",
             {
                 method: "POST",
                 headers: {
