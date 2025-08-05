@@ -65,14 +65,18 @@ export default function MyTripPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const handleLoginRedirect = () => {
+    window.location.href = '/login';
+  };
+
   useEffect(() => {
     const fetchTrips = async () => {
       try {
-        // Replace 52 with the actual user ID from your authentication system
-        // const userId = 52; // This should come from your auth context or session
-        const userId = localStorage.getItem('userId');
         const id = Cookies.get('userId');
-        console.log(",sfdfds",id)
+        if (!id) {
+          setLoading(false);
+          return;
+        }
         const response = await fetch(`https://api.worldtriplink.com/api/by-user/${id}`);
         
         if (!response.ok) {
@@ -168,6 +172,36 @@ export default function MyTripPage() {
             className="text-red-500 text-xl"
           >
             {error}
+          </motion.div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (!Cookies.get('userId')) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navbar2 />
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center"
+          >
+            <div className="text-gray-800 text-2xl font-semibold mb-4">
+              Please Login to View Your Trips
+            </div>
+            <p className="text-gray-600 mb-6">
+              Sign in to access your booking history and manage your trips
+            </p>
+            <button
+              onClick={handleLoginRedirect}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg 
+                       transition-colors duration-200 shadow-md hover:shadow-lg"
+            >
+              Login Now
+            </button>
           </motion.div>
         </div>
         <Footer />
